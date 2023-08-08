@@ -1,0 +1,369 @@
+1--> GET CALL POST CALL
+
+----------------------------------------------------------------------------------------------------------------------
+2-> validations
+<!DOCTYPE html>
+<html>
+
+<body>
+<form>
+<table>
+<tr><td><label>Name: </label></td><td><input type='textfield' id='name' required></td></tr>
+<tr><td><label>Adhaar: </label></td><td><input type='textfield' id='adhaar' maxlength='12' minlength='12' pattern="[0-9]+"></td></tr>
+<tr><td><label>Mobile: </label></td><td><input type='textfield' id='mobile' maxlength='10' minlength='10' pattern="[0-9]+"></td></tr>
+<tr><td><label>DOB: </label></td><td><input type='date' id='dob'></td></tr>
+<tr><td><label>Email: </label></td><td><input type='email' id='email'></td></tr>
+<tr><td><label>FB URL: </label></td><td><input type='textfield' id='fb'></td></tr>
+<tr><td><label>Password: </label></td><td><input type='password' id='password'></td></tr>
+<tr><td><label>Confirm Pass: </label></td><td><input type='password' id='confirmpass'></td></tr>
+</table>
+<button type='submit'>Submit</button>
+</form>
+</body>
+<script>
+var currentDate = new Date().toISOString().split("T")[0];
+document.getElementById("dob").max = currentDate;
+
+var emailInput = document.getElementById("email");
+emailInput.addEventListener("input", function(event) {
+  var email = event.target.value;
+  var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  var isValid = emailRegex.test(email);
+  if (isValid) {
+    emailInput.setCustomValidity("");
+  } else {
+    emailInput.setCustomValidity("Invalid email address");
+  }
+});
+
+var fbInput = document.getElementById("fb");
+fbInput.addEventListener("input", function(event) {
+  var fbUrl = event.target.value;
+  var fbUrlRegex = /^(https?:\/\/)?(www\.)?facebook\.com\/[a-zA-Z0-9(\.\?)?]/;
+  var isValid = fbUrlRegex.test(fbUrl);
+  if (isValid) {
+    fbInput.setCustomValidity("");
+  } else {
+    fbInput.setCustomValidity("Invalid Facebook URL");
+  }
+});
+
+var passwordInput = document.getElementById("password");
+passwordInput.addEventListener("input", function(event) {
+  var password = event.target.value;
+  var passwordRegex = /^(?=.*[A-Z]).{8,}$/;
+  var isValid = passwordRegex.test(password);
+  if (isValid) {
+    passwordInput.setCustomValidity("");
+  } else {
+    passwordInput.setCustomValidity("Password must be at least 8 characters long and contain at least one uppercase letter");
+  }
+});
+
+var passwordInput = document.getElementById("password");
+var confirmPassInput = document.getElementById("confirmpass");
+
+confirmPassInput.addEventListener("input", function(event) {
+  var password = passwordInput.value;
+  var confirmPass = event.target.value;
+
+  if (confirmPass === password) {
+    confirmPassInput.setCustomValidity("");
+  } else {
+    confirmPassInput.setCustomValidity("Passwords do not match");
+  }
+});
+</script>
+
+</html>
+
+3->
+ xhr.send(JSON.stringify(data));	
+}
+  </script>
+</body>
+</html>
+-------------------------------------------------------------------------------------------------------------------
+3->GET CALL POST CALL
+<html>
+<head>
+  <title>AJAX POST Call</title>
+</head>
+<body>
+  <p id="para">This is the response tag</p>
+  <form onsubmit="ajaxpostcall()">
+    name:<input type="text" id="name"></br>
+    job:<input type="text" id="job"></br>
+    
+  </form>
+<input type="button" onclick="ajaxpostcall()" value="submit">
+  <script>
+    function ajaxpostcall()
+ {
+ const xhr=new XMLHttpRequest();
+var name=document.getElementById("name").value;
+var job=document.getElementById("job").value;
+ xhr.open("POST","https://reqres.in/api/users",true);
+ const data={"name":name,"job":job};
+	
+ xhr.setRequestHeader("content-type","application/JSON");
+ xhr.addEventListener("readystatechange",function(){
+  if(xhr.status>=200 && xhr.status<300 && xhr.readyState==4)
+  {
+   const res=xhr.responseText;
+   const res1=JSON.parse(xhr.responseText);
+   console.log(res);
+   document.getElementById("para").innerHTML=res;
+            console.log(res1.name);
+ 
+         }
+         else
+         {
+          console.log(xhr.status);
+         }
+ });
+
+--------------------------------------------------------------------------------------------
+4-> back,next,reload
+<html>
+<head>
+<title>window function</title>
+</head>
+<body>
+
+<button><a href="#" onclick="goBack()">Go Back</a></button><br>
+
+
+<button><a href="#" onclick="goForward()">Go Forward</a></button><br>
+
+<button><a href="#" onclick="redirectTo('https://nkxgen.com/')">Go to nkxgen</a></button><br>
+
+<button onclick="displayHistory()">Show History</button>
+
+<ul id="historyList"></ul>
+
+
+
+
+<button><a href="#" onclick="reloadPage()">Reload Page</a><button><br>
+
+<script>
+ 
+  function goBack() {
+    window.history.back();
+  }
+
+
+  function goForward() {
+    window.history.forward();
+  }
+
+  function redirectTo(url) {
+    window.location.href = url;
+  }
+
+
+  function reloadPage() {
+    location.reload();
+  }
+
+
+    function displayHistory() {
+    const historyList = document.getElementById('historyList');
+
+
+    historyList.innerHTML = '';
+
+    // Iterate through the browsing history entries
+    for (let i = 1; i < window.history.length; i++) {
+console.log(i);
+      const historyItem = document.createElement('li');
+      historyItem.textContent = window.history[i];
+
+      historyList.appendChild(historyItem);
+    }
+  }
+  
+</script>
+
+</script>
+</html>
+--------------------------------------------------------------------------------------------------------
+5->tour
+<body>
+
+<form onsubmit="total()" id="form">
+<div id="container">
+<div>
+  <label for="name">Name:</label>
+  <input type="text" id="name" name="name" required><br>
+
+  <label for="gender">Gender:</label>
+  <select id="gender" name="gender" required>
+    <option value="">Select Gender</option>
+    <option value="male">Male</option>
+    <option value="female">Female</option>
+    <option value="other">Other</option>
+  </select><br>
+
+  <label for="email">Email:</label>
+  <input type="email" id="email" name="email" required><br>
+
+  <label for="mobile">Mobile:</label>
+  <input type="tel" id="mobile" name="mobile" required><br>
+
+  <label for="age">Age:</label>
+  <input type="number" id="age" name="age" required><br><br><br><br>
+</div>
+</div>
+  <input type="submit" value="Submit">
+
+</form>
+<input type="button" onclick="addpass()" value="+">
+ <input type="button" value="-" onclick="removeDiv()">
+<script>
+function addpass()
+{
+const container = document.getElementById("container");
+
+  
+  const newUserInput = document.createElement("div");
+  newUserInput.innerHTML = `<label for="name">Name:</label>
+  <input type="text" id="name" name="name" required><br>
+
+  <label for="gender">Gender:</label>
+  <select id="gender" name="gender" required>
+    <option value="">Select Gender</option>
+    <option value="male">Male</option>
+    <option value="female">Female</option>
+    <option value="other">Other</option>
+  </select><br>
+
+  <label for="email">Email:</label>
+  <input type="email" id="email" name="email" required><br>
+
+  <label for="mobile">Mobile:</label>
+  <input type="tel" id="mobile" name="mobile" required><br>
+
+  <label for="age">Age:</label>
+  <input type="number" id="age" name="age" required><br><br><br><br><br>
+    
+  `;
+  container.appendChild(newUserInput);
+}
+function removeDiv() {
+ var divContainer = document.querySelector("#container");
+  var divs = divContainer.getElementsByTagName("div");
+  
+    if (divs.length > 1) {
+    // Remove the first div element
+    divContainer.removeChild(divs[0]);
+  }
+
+}
+function total()
+{
+ var divContainer = document.querySelector("#container");
+  var divs = divContainer.getElementsByTagName("div");
+  const res=document.createElement("h1");
+  res.innerHTML=("Total passengers are "+divs.length+" and cost is :"+divs.length*900);
+document.body.innerHTML = "";
+
+  document.body.appendChild(res);
+}
+
+</script>
+</body>
+----------------------------------------------------------------------------------------------------
+6->JSON
+<!DOCTYPE html>
+<html>
+<head>
+  <title>JSON to Table</title>
+  <style>
+    table {
+      border-collapse: collapse;
+    }
+    th, td {
+      border: 1px solid black;
+      padding: 8px;
+    }
+  </style>
+</head>
+<body>
+  <div id="table-container"></div>
+
+  <script>
+    const displayTable = (jsonString) => {
+      const data = JSON.parse(jsonString);
+      const tableContainer = document.getElementById('table-container');
+      const table = document.createElement('table');
+
+ 
+      if (Array.isArray(data)) {
+       
+        const thead = document.createElement('thead');
+        const headerRow = document.createElement('tr');
+        for (const key in data[0]) {
+          const th = document.createElement('th');
+          th.textContent = key;
+          headerRow.appendChild(th);
+        }
+        thead.appendChild(headerRow);
+        table.appendChild(thead);
+
+     
+        const tbody = document.createElement('tbody');
+        data.forEach((item) => {
+          const row = document.createElement('tr');
+          for (const key in item) {
+            const td = document.createElement('td');
+            if (key === 'authors') {
+              const authors = item[key].author.join(', ');
+              td.textContent = authors;
+            } else {
+              td.textContent = item[key];
+            }
+            row.appendChild(td);
+          }
+          tbody.appendChild(row);
+        });
+        table.appendChild(tbody);
+      } else if (typeof data === 'object') {
+       
+        const thead = document.createElement('thead');
+        const headerRow = document.createElement('tr');
+        for (const key in data) {
+          const th = document.createElement('th');
+          th.textContent = key;
+          headerRow.appendChild(th);
+        }
+        thead.appendChild(headerRow);
+        table.appendChild(thead);
+
+
+        const tbody = document.createElement('tbody');
+        const row = document.createElement('tr');
+        for (const key in data) {
+          const td = document.createElement('td');
+          if (key === 'authors') {
+            const authors = data[key].author.join(', ');
+            td.textContent = authors;
+          } else {
+            td.textContent = data[key];
+          }
+          row.appendChild(td);
+        }
+        tbody.appendChild(row);
+        table.appendChild(tbody);
+      }
+
+      tableContainer.appendChild(table);
+    };
+
+  
+      const jsonString = '[{"id":"bk101","authors":{"author":["Gambardella","Matthew"]},"title":"Developers Guide","price":"650","publish_date":"2000-10-01"},{"id":"bk102","authors":{"author":["Rails","Kim"]},"title":"Midnight Rain","price":"225","publish_date":"2000-12-16"}]';
+    displayTable(jsonString);
+  </script>
+</body>
+</html>
